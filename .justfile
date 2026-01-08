@@ -39,20 +39,15 @@ build-image tag="latest":
 test-container: (build-image "latest")
     - podman run --rm --name {{ project_name }} -it {{ project_name }}:latest /bin/sh
 
-# Runs the webapp in a container
+# Runs the MCP in a container
 [group("Testing")]
-test-container-webapp: (build-image "latest")
-    - podman run --rm --name {{ project_name }} -p 8501:8501 {{ project_name }}:latest
+test-mcp-container: (build-image "latest")
+    - podman run --rm --name {{ project_name }} -p 8000:8000 {{ project_name }}:latest
 
-# Runs the webapp locally
+# Runs the MCP locally
 [group("Testing")]
-test-webapp-local:
-    uv run streamlit run webapp/intro.py
-
-# Builds the Sphinx documentation
-[group("Docs")]
-build-docs *options:
-    uv run sphinx-build docs/source docs/build {{ options }}
+test-mcp-local:
+    uv run fastmcp run src/demo_source_mcp/app.py:mcp --transport http --port 8000 --skip-env
 
 # Applys kubernetes manifests via Kustomize
 [group("Deploy")]

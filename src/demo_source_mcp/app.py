@@ -2,6 +2,8 @@ import logging
 from urllib.parse import urljoin
 
 from fastmcp import FastMCP
+from starlette.requests import Request
+from starlette.responses import PlainTextResponse
 
 from demo_source_mcp.base import SearchResult
 from demo_source_mcp.convert import convert_to_markdown, convert_to_page
@@ -10,6 +12,12 @@ from demo_source_mcp.igloo import Igloo
 logger = logging.getLogger(__name__)
 
 mcp = FastMCP("demo_source_mcp")
+
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health_check(request: Request) -> PlainTextResponse:
+    """Check health of the server."""
+    return PlainTextResponse("OK")
 
 
 @mcp.tool
@@ -80,4 +88,4 @@ def get_content(id: str = None, href: str = None) -> str:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
-    mcp.run()
+    mcp.run(transport="http", host="0.0.0.0", port=8000)
