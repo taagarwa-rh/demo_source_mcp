@@ -55,7 +55,7 @@ def search(query: str, limit: int = 5) -> list[SearchResult]:
 @mcp.tool
 def get_content(id: str = None, href: str = None) -> str:
     """
-    Fetch the content of a given page in an easy-to-understand Markdown format.
+    Fetch the content of a given page from "The Source" in an easy-to-understand Markdown format.
 
     Only one of id or href should be defined. If both are defined, the id will be used.
     If neither is defined, an error will be raised.
