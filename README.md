@@ -17,6 +17,12 @@ This is a demo MCP server for fetching information from "The Source", Red Hat's 
 
 ## Installation
 
+### Prerequisites
+
+- Have an Igloo API key. If you do not already have one, you can get one by following [these instructions](./docs/Igloo.md).
+
+### Instructions
+
 1. Clone the repo
 
     ```sh
@@ -24,13 +30,22 @@ This is a demo MCP server for fetching information from "The Source", Red Hat's 
     cd demo_source_mcp
     ```
 
-1. Copy `.env.example` to `.env` and fill in required environment variables
+1. Copy `.env.example` to `.env` and fill in required environment variables. For more information on how to get Igloo API keys and how to fill in environment variables, see [Igloo API Access Instructions](./docs/Igloo.md).
 
     ```sh
     cp .env.example .env
     ```
 
 1. Start the MCP server
+
+    **Local (requires [uv](https://docs.astral.sh/uv/getting-started/installation/)):**
+
+    ```sh
+    uv sync
+    uv run src/demo_source_mcp/app.py 
+    ```
+
+    **Docker/Podman:**
 
     ```sh
     podman build -t demo_source_mcp:latest -f Containerfile .
