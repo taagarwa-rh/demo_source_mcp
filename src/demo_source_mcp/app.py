@@ -1,4 +1,5 @@
 import logging
+import os
 from urllib.parse import urljoin
 
 from fastmcp import FastMCP
@@ -88,4 +89,6 @@ def get_content(id: str = None, href: str = None) -> str:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
-    mcp.run(transport="http", host="0.0.0.0", port=8000)
+    host = os.getenv("MCP_HOST", "0.0.0.0")
+    port = int(os.getenv("MCP_PORT", 8000))
+    mcp.run(transport="http", host=host, port=port)
