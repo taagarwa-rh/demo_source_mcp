@@ -128,4 +128,6 @@ class Igloo:
         """Search for content based on a query. Returns a list of dictionaries containing the search results."""
         raw_search_result: dict = self.session.search_contentdetailed(query=query, limit=limit)
         search_results: list[dict] = raw_search_result.get("results", [])
+        # Content searches sometimes return more results than requested, so limit the return values
+        search_results = search_results[:limit]
         return search_results

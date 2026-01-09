@@ -28,7 +28,7 @@ class TestApp:
             response = await client.call_tool("search", payload)
             assert response.structured_content.get("result")
             results = response.structured_content.get("result")
-            # assert len(results) == 5 # TODO: figure out why this is 10
+            assert len(results) == 5
             assert isinstance(results[0], dict)
 
         # Check response to a well formed payload with defined limit
@@ -37,7 +37,7 @@ class TestApp:
             response = await client.call_tool("search", payload)
             assert response.structured_content.get("result") is not None
             results = response.structured_content.get("result")
-            # assert len(results) == 1 # TODO: figure out why this is 6
+            assert len(results) == 1
             assert isinstance(results[0], dict)
 
         # Check that a malformed payload raises an error
