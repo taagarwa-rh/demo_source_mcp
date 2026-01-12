@@ -1,5 +1,6 @@
 from urllib.parse import urljoin
 
+from fastmcp.exceptions import ToolError
 from markdownify import markdownify
 
 from demo_source_mcp.base import ContentType, Page
@@ -42,4 +43,6 @@ def convert_to_page(object_data: dict, igloo: Igloo):
 
 def convert_to_markdown(page: Page) -> str:
     """Change page content from HTML to markdown."""
-    return markdownify(page.content)
+    if page.extension == ".html":
+        return markdownify(page.content)
+    raise ToolError(f"Cannot convert page to Markdown: Unsupported extension {page.extension}")
