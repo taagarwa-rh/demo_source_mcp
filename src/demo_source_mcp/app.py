@@ -36,7 +36,7 @@ def search(query: str, limit: int = 5) -> list[SearchResult]:
     Returns:
         list[SearchResult]: A list of search results. Each result contains the id, url, and title of the content. Other fields may be returned.
 
-    """
+    """  # noqa: D407
     igloo = Igloo()
     raw_results = igloo.search(query=query, limit=limit)
     search_results = []
@@ -74,7 +74,7 @@ def get_content(id: str = None, href: str = None) -> str:
     Returns:
         str: Content of the page in markdown format.
 
-    """
+    """  # noqa: D407
     igloo = Igloo()
     if id is not None:
         object_data = igloo.get_object(object_id=id)
